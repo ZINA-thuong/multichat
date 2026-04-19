@@ -1,0 +1,22 @@
+services:
+  chat-server:
+    build: .
+    command: java -cp app.jar chatcloud.SimpleServer # Chạy class Server
+    ports:
+      - "8888:8888"
+
+  client-1:
+    build: .
+    depends_on:
+      - chat-server
+    command: java -cp app.jar chatcloud.Launcher # Giả lập client 1
+    environment:
+      - SERVER_URL=ws://chat-server:8888
+
+  client-2:
+    build: .
+    depends_on:
+      - chat-server
+    command: java -cp app.jar chatcloud.Launcher # Giả lập client 2
+    environment:
+      - SERVER_URL=ws://chat-server:8888
