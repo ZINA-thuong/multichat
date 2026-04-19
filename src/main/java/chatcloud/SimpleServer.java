@@ -44,6 +44,10 @@ public class SimpleServer extends WebSocketServer {
     public void onStart() { System.out.println("Server đã sẵn sàng tại cổng: " + getPort()); }
 
     public static void main(String[] args) {
-        new SimpleServer(8888).start();
+        // Thay vì fix cứng 8888, hãy đọc từ hệ thống
+        String portEnv = System.getenv("PORT");
+        int port = (portEnv != null) ? Integer.parseInt(portEnv) : 8888;
+        SimpleServer server = new SimpleServer(port);
+        server.start();
     }
 }
